@@ -10,12 +10,12 @@ import android.os.Bundle
 import android.os.IBinder
 import android.view.View
 import android.widget.Button
+import com.example.musicplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    lateinit var btn_play : Button
-    lateinit var btn_pause : Button
-    lateinit var btn_stop : Button
+    private lateinit var binding: ActivityMainBinding
+
     var mService: MusicPlayerService? = null
 
     val mServiceConnection = object : ServiceConnection {
@@ -30,26 +30,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        btn_play = findViewById(R.id.btn_play)
-        btn_pause = findViewById(R.id.btn_pause)
-        btn_stop = findViewById(R.id.btn_stop)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        btn_play.setOnClickListener(this)
-        btn_pause.setOnClickListener(this)
-        btn_stop.setOnClickListener(this)
+        binding.btnPlay.setOnClickListener(this)
+        binding.btnPause.setOnClickListener(this)
+        binding.btnStop.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.btn_play -> {
+        when(v) {
+            binding.btnPlay -> {
                 play()
             }
-            R.id.btn_pause -> {
+            binding.btnPause -> {
                 pause()
             }
-            R.id.btn_stop -> {
+            binding.btnStop -> {
                 stop()
             }
         }
